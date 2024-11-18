@@ -8,15 +8,6 @@
     padding: 2px;
 }
 
-.ruler {
-    width: 100%;
-    height: 1px;
-    
-    background-color: lightgrey;
-
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
 
 .main-digest {
     display: flex;
@@ -90,4 +81,10 @@
     flex-direction: row;
 
     align-items: center;
+}
+
+@media only screen and (max-width: 600px) {
+    .profile {
+        width: 95%;
+    }
 }

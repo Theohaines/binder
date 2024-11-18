@@ -158,7 +158,7 @@ function validateBeforeUpload(){
 
     const friendlyNameInput = document.getElementById("friendlyNameInput");
 
-    if (friendlyNameInput.textContent == "Click me to edit!" || friendlyNameInput.textContent.trim() == ""){
+    if (friendlyNameInput.value == "Click me to edit!" || friendlyNameInput.value.trim() == ""){
         alert('Err! You need to enter the friendly name value!');
         return;
     }
@@ -170,15 +170,41 @@ function validateBeforeUpload(){
     if (lobbyCodeInput.value.trim() == ""){
         submitProfileToDB('public');
     } else {
-        submitProfileToDB(lobbyCodeInput.value)
+        submitProfileToDB(lobbyCodeInput.value);
     }
 }
 
 async function submitProfileToDB(lobbyId){
-    fetch('/viewlobby', {  
+    const profileImage = document.getElementById("profileImage").src;
+    const profileName = document.getElementById("profileName").textContent;
+    const profileAge = document.getElementById("profileAge").textContent;
+    const profileLocation = document.getElementById("profileLocation").textContent;
+    const aboutMeText = document.getElementById("aboutMeText").textContent;
+    const friendlyNameInput = document.getElementById("friendlyNameInput").value;
+
+    const interestsListElement = document.getElementById("interestsList");
+    const mamListElement = document.getElementById("mamList");
+
+    let interestsList = [];
+    let mamList = [];
+
+    for (var entry of interestsListElement.childNodes){
+        interestsList.push(entry.textContent);
+    }
+
+    for (var entry of mamListElement.childNodes){
+        mamList.push(entry.textContent);
+    }
+
+
+    if (!lobbyId){
+        lobbyId = 'public'
+    }
+
+    fetch('/uploadprofile', {  
         method: 'post',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({"lobbyId" : lobbyId})
+        body: JSON.stringify({lobbyId, profileImage, profileName, profileAge, profileLocation, aboutMeText, interestsList, mamList, friendlyNameInput})
     }).then(response => {
         if (!response.ok) {
             alert("Status code: " + response.status + ". Did you enter a valid lobby code?");

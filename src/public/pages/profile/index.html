@@ -9,10 +9,7 @@
 </head>
 <body>
     <div class="nav-bar">
-        <a href="/">home</a>
-        <a href="/creator">creator</a>
-        <a href="/creator">submit creation</a>
-        <a href="/random">random profile</a>
+        <img src="/media/logo.png" onclick="redirect('/')">
     </div>
 
     <div class="profile">
@@ -60,7 +57,12 @@
                 <div class="mam-bubble">Sexist</div>
             </div>
         </div>
+
+        <div class="ruler"></div>
+
+        <h3 id="createdBy">Created by: NAME HERE</h3>
     </div>
 </body>
-<script src="/scripts/creator.js"></script>
+<script src="/scripts/loadprofile.js"></script>
+<script src="/scripts/globalcli.js"></script>
 </html>

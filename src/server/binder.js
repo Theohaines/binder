@@ -50,6 +50,8 @@ app.use("/creator", express.static(path.resolve("src/public/pages/creator")));
 app.use("/profile", express.static(path.resolve("src/public/pages/profile")));
 
 const createlobby = require("./scripts/lobby/createlobby.js");
+const loadlobby = require("./scripts/lobby/loadlobby.js")
+const uploadprofile = require("./scripts/upload/uploadprofile.js")
 const global = require("./scripts/global.js");
 
 app.get("/", (req, res) => {
@@ -100,12 +102,21 @@ app.use('/viewlobby', async (req, res) => {
     let validated = await global.validateLobbyExists(req.body.lobbyId);
 
     if (!validated){
-        res.status(400).send("400, lobby does not exist")
+        res.status(400).send("400, lobby does not exist");
+        return;
     } else if (validated == "err") {
-        res.status(500).send("500, Internal server error!")
+        res.status(500).send("500, Internal server error!");
+        return;
     }
 
-    res.sendStatus(200);
+    let lobby = await loadlobby.loadLobby(req.body.lobbyId);
+
+    if (!lobby){
+        res.sendStatus(500);
+        return;
+    }
+
+    res.status(200).json(JSON.stringify(lobby));
 });
 
 app.use('/validatelobby', async (req, res) => {
@@ -119,3 +130,49 @@ app.use('/validatelobby', async (req, res) => {
 
     res.sendStatus(200);
 })
+
+app.use('/uploadprofile', async (req, res) => {
+    console.log(req.body)
+
+    //First we validate the lobby code
+
+    let validated = await global.validateLobbyExists(req.body.lobbyId);
+
+    if (!validated){
+        res.status(400).send("400, lobby does not exist")
+    } else if (validated == "err") {
+        res.status(500).send("500, Internal server error!")
+    }
+
+    //If that validates fine then we can begin validating the rest of the body
+
+    var validatedProfile = await uploadprofile.uploadProfile(req.body.lobbyId, req.body.profileImage, req.body.profileName, req.body.profileAge, req.body.profileLocation, req.body.aboutMeText, req.body.interestsList, req.body.mamList, req.body.friendlyNameInput);
+
+    if (!validatedProfile){
+        res.sendStatus(400);
+    } else if (validatedProfile == "err"){
+        res.sendStatus(500)
+    }
+
+    res.sendStatus(200);
+});
+
+app.use('/loadprofile', async (req, res) => {
+    //First we validate the lobby code
+
+    let validated = await global.validateLobbyExists(req.body.lobbyId);
+
+    if (!validated){
+        res.status(400).send("400, lobby does not exist")
+    } else if (validated == "err") {
+        res.status(500).send("500, Internal server error!")
+    }
+
+    let profile = await global.loadProfile(req.body.id, req.body.lobbyId);
+
+    if (!profile){
+        res.status(400).send("400, profile does not exist")
+    } else {
+        res.status(200).json(JSON.stringify(profile));
+    }
+});

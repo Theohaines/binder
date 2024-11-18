@@ -8,6 +8,7 @@
 }
 
 .landing-option-container {
+    text-align: center;
     width: 30vw;
 
     background-color: white;
@@ -18,10 +19,92 @@
     row-gap: 10px;
 
     align-items: center;
+
+    padding-bottom: 5px;
 }
 
 .landing-option-container input[type="text"]{
-    width: 60%;
+    width: 80%;
     height: 30px;
     text-align: center;
+}
+
+.landing-option-container button{
+    width: 80%;
+    height: 30px;
+    text-align: center;
+}
+
+.lobby-view {
+    margin-top: 10px;
+
+    padding: 5px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 90vw;
+    background-color: white;
+    border: solid 2px black;
+}
+
+.lobby-list {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    row-gap: 10px;
+}
+
+.lobby-entry {
+    width: 100%;
+    height: 30px;
+    padding: 2px;
+
+    display: flex;
+    flex-flow: row;
+    column-gap: 10px;
+    align-items: center;
+
+    border: 2px solid black;
+}
+
+.lobby-entry button {
+    padding: 6px 12px;
+}
+
+.how-to-play {
+    text-align: center;
+    margin-top: 10px;
+
+    padding: 5px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 90vw;
+    background-color: white;
+    border: solid 2px black;
+}
+
+@media only screen and (max-width: 600px) {
+    .landing-options {
+        flex-flow: column;
+        justify-content: center;
+        align-items: center;
+
+        row-gap: 10px;
+    }
+
+    .landing-option-container {
+        text-align: center;
+        width: 90vw;
+    }
 }

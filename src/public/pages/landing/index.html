@@ -9,9 +9,7 @@
 </head>
 <body>
     <div class="nav-bar">
-        <a href="/">Home</a>
-        <a href="/creator">Profile creator</a>
-        <a href="/random">Random profile</a>
+        <img src="/media/logo.png" onclick="redirect('/')">
     </div>
 
     <div class="landing-options">
@@ -32,6 +30,43 @@
             <input type="text" name="lobbyCode" id="createProfileInput" placeholder="Enter lobby code... (empty = public)">
             <button onclick="createProfileAdv()">create profile</button>
         </div>
+    </div>
+
+    <div class="lobby-view">
+        <h1>Lobby view</h1>
+
+        <div id="lobbyList" class="lobby-list">
+        </div>
+    </div>
+
+    <div class="how-to-play">
+        <h1>Stupid? heres the ruleset!</h1>
+        <div class="ruler"></div>
+        <h3>Hosting a game</h3>
+        <h4>If you want to host a game create a lobby using the create lobby button!</h4>
+        <h4>You can share this 'code' with the other people you're playing with so they can submit their profiles to your lobby!</h4>
+        <div class="ruler"></div>
+        <h3>Joining a game</h3>
+        <h4>If you're joining a game you can will need a lobby code from the person hosting your game!</h4>
+        <h4>Once you have this lobby code just paste it into the create profile lobby code box and then press create profile!</h4>
+        <div class="ruler"></div>
+        <h3>Viewing a lobby</h3>
+        <h4>Once all players have submitted their profiles you can view the lobby!</h4>
+        <h4>Just paste the lobby code into the view lobby code box and press the view lobby button!</h4>
+        <h4>This will give you a list of all profiles created in your lobby which you can view and vote on which ones the best!</h4>
+        <div class="ruler"></div>
+        <h3>Rules</h3>
+        <h4>There is no time limit on games, you can spend as long as you like creating your profile although you may choose to impose a time limit if you'd like!</h4>
+        <h4>All information on the profile must be filled out</h4>
+        <div class="ruler"></div>
+        <h3>Public</h3>
+        <h4>You can also choose to not join a lobby and just post a profile to the public lobby board!</h4>
+        <h4>You can do this by not entering a lobby code and just pressing create profile</h4>
+        <h4>Then if you want to see other public profiles just type 'public' into the view lobby box!</h4>
+        <div class="ruler"></div>
+        <h3>Other info</h3>
+        <h4>Created by Theo Haines</h4>
+        <h4>Version 0.1.0 (public)</h4>
     </div>
 </body>
 <script src="/scripts/lobbyhandlercli.js"></script>

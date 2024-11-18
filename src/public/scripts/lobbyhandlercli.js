@@ -30,10 +30,38 @@ async function viewLobby() {
         }
         return response.json();
     }) .then(data => {
-        //We will do some redirect stuff here once I get profile uploads on the DB working!
+        prettyListLobby(data);
     }).catch(error => {
         console.error('Fetch error:', error);
     });
+}
+
+function prettyListLobby(lobby) {
+    console.log(lobby)
+    const lobbyList = document.getElementById("lobbyList");
+
+    lobbyList.innerHTML = ""
+
+    lobby = JSON.parse(lobby)
+
+    for (var profile of lobby){
+        var profileEntry = document.createElement("div");
+        profileEntry.className = "lobby-entry";
+        lobbyList.appendChild(profileEntry);
+
+        var profileEntryName = document.createElement("H4");
+        profileEntryName.textContent = profile.P_NAME;
+        profileEntry.appendChild(profileEntryName);
+        
+        var profileEntryCreator = document.createElement("H4");
+        profileEntryCreator.textContent = "Created by: " + profile.P_CREATOR;
+        profileEntry.appendChild(profileEntryCreator);
+
+        var profileEntryButton = document.createElement("button");
+        profileEntryButton.textContent = "Click to view!";
+        profileEntryButton.setAttribute("onClick", "redirectProfileViaID("+profile.P_ID+")")
+        profileEntry.appendChild(profileEntryButton);
+    }
 }
 
 async function createProfileAdv(params) {
@@ -57,4 +85,10 @@ async function createProfileAdv(params) {
             console.error('Fetch error:', error);
         });
     }
+}
+
+function redirectProfileViaID(id){
+    let viewLobbyCodeInput = document.getElementById("viewLobbyCodeInput"); //We use the lobby code like a password to make sure the user is allowed to view this code ;)
+    
+    window.location.href = "/profile?id=" + id + "&lobbyId=" + viewLobbyCodeInput.value;
 }

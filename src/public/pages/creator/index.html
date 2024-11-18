@@ -10,9 +10,7 @@
 </head>
 <body>
     <div class="nav-bar">
-        <a href="/">Home</a>
-        <a href="/creator">Profile creator</a>
-        <a href="/random">Random profile</a>
+        <img src="/media/logo.png" onclick="redirect('/')">
     </div>
 
     <div class="creator-container">
@@ -84,8 +82,13 @@
             <input id="lobbyCodeInput" class="lobby-code-input" type="text" placeholder="lobby code...">
             <input id="friendlyNameInput" class="lobby-code-input" type="text" placeholder="Friendly name... (your name)">
             <button class="profile-image-upload-submit" onclick="validateBeforeUpload()">submit</button>
+
+            <div class="ruler"></div>
+            <h3>See example profile (opens in new tab)</h3>
+            <button class="profile-image-upload-submit" onclick="redirectT('/profile/?id=7&lobbyId=public')">Example profile</button>
         </div>
     </div>
 </body>
 <script src="/scripts/creator.js"></script>
+<script src="/scripts/globalcli.js"></script>
 </html>

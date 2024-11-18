@@ -56,11 +56,18 @@
 }
 
 .profile-image-upload {
-    display: flex;
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
 
-    flex-direction: row;
-    align-items: center;
+.profile-image-upload-submit {
+    padding: 6px 12px;
+}
 
-    text-align: center;
+.lobby-code-input {
+    padding: 6px 12px;
+    margin-bottom: 10px;
 }
 

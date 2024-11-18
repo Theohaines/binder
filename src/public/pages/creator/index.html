@@ -10,16 +10,15 @@
 </head>
 <body>
     <div class="nav-bar">
-        <a href="/">home</a>
-        <a href="/creator">creator</a>
-        <a href="/creator">submit creation</a>
-        <a href="/random">random profile</a>
+        <a href="/">Home</a>
+        <a href="/creator">Profile creator</a>
+        <a href="/random">Random profile</a>
     </div>
 
     <div class="creator-container">
         <div class="profile">
             <div class="main-digest">
-                <img id="profileImage" src="/media/clicktoedit.png" onclick="onClickEdit(this, 'image')">
+                <img id="profileImage" src="/media/clicktoedit.png">
                 <div class="name-age-combo">
                     <h1 id="profileName" class="name" onclick="onClickEdit(this, 'text')">Click me to edit!</h1>
                     <h1 id="profileAge" class="age" onclick="onClickEdit(this, 'text')">Click me to edit!</h1>
@@ -66,7 +65,7 @@
 
             <form method="post" id="uploadImageForm" enctype="multipart/form-data" action="/upload">
                 <input id="profileImageUpload" class="profile-image-upload" type="file" name="profileImage">
-                <input type="submit" value="submit">
+                <input id="profileImageUploadButton" class="profile-image-upload-submit" type="submit" value="submit">
             </form>
             
             <div class="ruler"></div>
@@ -82,8 +81,8 @@
             <h5>If you want your creation to appear on the public profiles list then just press submit!</h5>
 
             <div class="ruler"></div>
-            <input type="text" placeholder="lobby code...">
-            <button onclick="validateBeforeUpload()">submit</button>
+            <input id="lobbyCodeInput" class="lobby-code-input" type="text" placeholder="lobby code...">
+            <button class="profile-image-upload-submit" onclick="validateBeforeUpload()">submit</button>
         </div>
     </div>
 </body>

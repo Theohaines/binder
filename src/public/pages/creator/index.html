@@ -1,0 +1,60 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binder - profile view</title>
+
+    <link rel="stylesheet" href="/styles/global.css">
+    <link rel="stylesheet" href="/creator/creator.css">
+    <link rel="stylesheet" href="/styles/profile.css">
+</head>
+<body>
+    <div class="nav-bar">
+        <a href="/">home</a>
+        <a href="/creator">creator</a>
+        <a href="/creator">submit creation</a>
+        <a href="/random">random profile</a>
+    </div>
+
+    <div class="profile">
+        <div class="main-digest">
+            <img id="profileImage" src="/media/clicktoedit.png" onclick="onClickEdit(this, 'image')">
+            <div class="name-age-combo">
+                <h1 id="profileName" class="name" onclick="onClickEdit(this, 'text')">Click me to edit!</h1>
+                <h1 id="profileAge" class="age" onclick="onClickEdit(this, 'text')">Click me to edit!</h1>
+            </div>
+            <div class="lives-in">
+                <img src="/media/icons/home.svg"> <p id="profileLocation" class="profile-location" onclick="onClickEdit(this, 'text', 'Lives in ')">Click me to edit!</p>
+            </div>
+        </div>
+
+        <div class="ruler"></div>
+
+        <div class="about-me">
+            <h3>About me</h3>
+            <p id="aboutMeText" class="about-me-text" onclick="onClickEdit(this, 'text')">Click me to edit!</p>
+        </div>
+
+        <div class="ruler"></div>
+
+        <div class="interests">
+            <h3>Interests</h3>
+            <div id="interestsList" class="interests-list" onclick="onClickEdit(this, 'interests')"><div class="interest-bubble">Click me to edit!</div></div>
+        </div>
+
+        <div class="ruler"></div>
+
+        <div class="more-about-me">
+            <h3>More about me</h3>
+            <div id="mamList" class="mam-list" onclick="onClickEdit(this, 'mam')"><div class="mam-bubble">Click me to edit!</div></div>
+        </div>
+    </div>
+
+    <div class="creator-tools">
+        <h1>Creator-tools</h1>
+        <p>Click on any area of text to edit it! Double click the profile image to change it!</p>
+        <textarea name="creatorTextArea" id="creatorTextArea" placeholder="Now editing: nothing!" oninput="updateTextArea()"></textarea>
+    </div>
+</body>
+<script src="/scripts/creator.js"></script>
+</html>

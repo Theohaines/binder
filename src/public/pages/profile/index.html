@@ -1,0 +1,66 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binder - profile view</title>
+
+    <link rel="stylesheet" href="/styles/global.css">
+    <link rel="stylesheet" href="/styles/profile.css">
+</head>
+<body>
+    <div class="nav-bar">
+        <a href="/">home</a>
+        <a href="/creator">creator</a>
+        <a href="/creator">submit creation</a>
+        <a href="/random">random profile</a>
+    </div>
+
+    <div class="profile">
+        <div class="main-digest">
+            <img id="profileImage" src="https://www.spongebobshop.com/cdn/shop/products/SB-Standees-Spong-3_1200x.jpg?v=1603744568" alt="profile image">
+            <div class="name-age-combo">
+                <h1 id="profileName" class="name">Spunchbob</h1>
+                <h1 id="profileAge" class="age">36</h1>
+            </div>
+            <p id="profileLocation" class="profile-location"><img src="/media/icons/home.svg">Lives in Bikini Bottom</p>
+        </div>
+
+        <div class="ruler"></div>
+
+        <div class="about-me">
+            <h3>About me</h3>
+            <p id="aboutMeText" class="about-me-text">
+                SpongeBob SquarePants is an American animated television series created by marine science educator and animator Stephen Hillenburg for Nickelodeon. 
+                It was revealed as a sneak peek after the 1999 Kids' Choice Awards on May 1, 1999, and officially premiered on July 17, 1999. 
+                It chronicles the adventures of the titular character and his aquatic friends in the underwater city of Bikini Bottom.
+            </p>
+        </div>
+
+        <div class="ruler"></div>
+
+        <div class="interests">
+            <h3>Interests</h3>
+            <div id="interestsList" class="interests-list">
+                <div class="interest-bubble">Jelly fishing</div>
+                <div class="interest-bubble">Cooking</div>
+                <div class="interest-bubble">Imagination</div>
+                <div class="interest-bubble">Nautical nonsense</div>
+                <div class="interest-bubble">Making friends</div>
+                <div class="interest-bubble">Pineapples</div>
+                <div class="interest-bubble">Mermaid man and Barnacle boy</div>
+            </div>
+        </div>
+
+        <div class="ruler"></div>
+
+        <div class="more-about-me">
+            <h3>More about me</h3>
+            <div id="mamList" class="mam-list">
+                <div class="mam-bubble">Dog person</div>
+                <div class="mam-bubble">Sexist</div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="/scripts/creator.js"></script>
+</html>

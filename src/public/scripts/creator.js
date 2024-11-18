@@ -4,12 +4,14 @@ var currentElement = null
 var currentType = null
 var currentPart = null
 
+var customImageUsed = false
+
 function onClickEdit(element, type, part){
     if (currentElement != null && currentElement.textContent == "" || currentType == "image") {
         if (type == "image" && currentElement.src == ""){
             currentElement.src = "/media/clicktoedit.png"
         } else {
-            currentElement.textContent = "Click to edit!"
+            currentElement.textContent = "Click me to edit!"
         }
     }
 
@@ -60,18 +62,6 @@ function parseInterestsAndMam(string){
     }
 }
 
-function validateBeforeUpload(){
-    const profileImage = document.getElementById("profileImage");
-
-    if (!profileImage.src.trim() || profileImage.src.trim() == ""){
-        alert("FUCK");
-        return;
-    }
-
-    console.log("ran")
-    console.log(profileImage.src, profileImage.src.trim())
-}
-
 uploadImageForm.addEventListener('submit', handleSubmit);
 
 async function handleSubmit(event) {
@@ -110,4 +100,103 @@ async function handleSubmit(event) {
     const profileImage = document.getElementById("profileImage");
 
     profileImage.src = "/media/uploads/" + JSON.parse(json);
+    customImageUsed = true
 }
+
+function validateBeforeUpload(){
+    //Validate like a boss (why bother because we gotta do this on server side anyways)
+
+    if (customImageUsed == false){
+        alert('Err! You need to upload your own image!');
+        return;
+    }
+
+    const profileName = document.getElementById("profileName");
+
+    if (profileName.textContent == "Click me to edit!" || profileName.textContent.trim() == ""){
+        alert('Err! You need to edit the name value!');
+        return;
+    }
+
+    const profileAge = document.getElementById("profileAge");
+
+    if (profileAge.textContent == "Click me to edit!" || profileAge.textContent.trim() == ""){
+        alert('Err! You need to edit the age value!');
+        return;
+    }
+
+    const profileLocation = document.getElementById("profileLocation");
+
+    if (profileLocation.textContent == "Click me to edit!" || profileLocation.textContent.trim() == ""){
+        alert('Err! You need to edit the location value!');
+        return;
+    }
+
+    const aboutMeText = document.getElementById("aboutMeText");
+
+    if (aboutMeText.textContent == "Click me to edit!" || aboutMeText.textContent.trim() == ""){
+        alert('Err! You need to edit the About me value!');
+        return;
+    } else if (aboutMeText.textContent.trim().length < 30) {
+        alert('Err! About me text must be more than 30 characters!');
+        return;
+    }
+
+    const interestsList = document.getElementById("interestsList");
+
+    if (interestsList.childElementCount < 2){
+        alert('Err! Interests list must have at least 2 entrys!');
+        return;
+    }
+
+    const mamList = document.getElementById("mamList");
+
+    if (mamList.childElementCount < 2){
+        alert('Err! More about me list must have at least 2 entrys!');
+        return;
+    }
+
+    const friendlyNameInput = document.getElementById("friendlyNameInput");
+
+    if (friendlyNameInput.textContent == "Click me to edit!" || friendlyNameInput.textContent.trim() == ""){
+        alert('Err! You need to enter the friendly name value!');
+        return;
+    }
+
+    //If all of that validates then...
+
+    const lobbyCodeInput = document.getElementById("lobbyCodeInput");
+
+    if (lobbyCodeInput.value.trim() == ""){
+        submitProfileToDB('public');
+    } else {
+        submitProfileToDB(lobbyCodeInput.value)
+    }
+}
+
+async function submitProfileToDB(lobbyId){
+    fetch('/viewlobby', {  
+        method: 'post',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({"lobbyId" : lobbyId})
+    }).then(response => {
+        if (!response.ok) {
+            alert("Status code: " + response.status + ". Did you enter a valid lobby code?");
+            throw new Error('Network response was not ok');
+        }
+        response.json()
+    }) .then(data => {
+        //Cool profile stuff I might do...
+    }).catch(error => {
+        console.error('Fetch error:', error);
+    });
+}
+
+function pageLoad(){
+    const urlParams = new URLSearchParams(window.location.search);
+    const lobbyId = urlParams.get('lobbyId');
+
+    lobbyCodeInput.value = lobbyId;
+}
+
+pageLoad();

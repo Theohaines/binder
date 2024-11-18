@@ -1,0 +1,27 @@
+.landing-options {
+    margin-top: 25px;
+    width: 100%;
+    
+    display: flex;
+    flex-flow: row;
+    justify-content: space-evenly;    
+}
+
+.landing-option-container {
+    width: 30vw;
+
+    background-color: white;
+    border: solid 2px black;
+
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+
+    align-items: center;
+}
+
+.landing-option-container input[type="text"]{
+    width: 60%;
+    height: 30px;
+    text-align: center;
+}

@@ -49,6 +49,9 @@ app.use("/lobby", express.static(path.resolve("src/public/pages/lobby")));
 app.use("/creator", express.static(path.resolve("src/public/pages/creator")));
 app.use("/profile", express.static(path.resolve("src/public/pages/profile")));
 
+const createlobby = require("./scripts/lobby/createlobby.js");
+const global = require("./scripts/global.js");
+
 app.get("/", (req, res) => {
     res.sendFile(path.resolve("src/public/pages/landing/index.html"));
 });
@@ -82,3 +85,37 @@ app.use('/upload', (req, res) => {
         res.json(JSON.stringify(req.file.filename))
     });
 });
+
+app.use('/createlobby', async (req, res) => {
+    let lobbyId = await createlobby.createLobby();
+
+    if (!lobbyId){
+        res.status(500).send("500, Internal server error!")
+    } else {
+        res.status(200).json(JSON.stringify(lobbyId));
+    }
+});
+
+app.use('/viewlobby', async (req, res) => {
+    let validated = await global.validateLobbyExists(req.body.lobbyId);
+
+    if (!validated){
+        res.status(400).send("400, lobby does not exist")
+    } else if (validated == "err") {
+        res.status(500).send("500, Internal server error!")
+    }
+
+    res.sendStatus(200);
+});
+
+app.use('/validatelobby', async (req, res) => {
+    let validated = await global.validateLobbyExists(req.body.lobbyId);
+
+    if (!validated){
+        res.status(400).send("400, lobby does not exist")
+    } else if (validated == "err") {
+        res.status(500).send("500, Internal server error!")
+    }
+
+    res.sendStatus(200);
+})

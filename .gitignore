@@ -7,6 +7,8 @@ yarn-error.log*
 lerna-debug.log*
 .pnpm-debug.log*
 
+*.sqlite
+
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
@@ -129,4 +131,4 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-src/public/media/uploads
+src/public/media/uploads/

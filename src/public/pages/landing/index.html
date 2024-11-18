@@ -8,11 +8,32 @@
     <link rel="stylesheet" href="/landing/landing.css">
 </head>
 <body>
-    <input type="text" name="lobbyCodeInput" id="lobbyCodeInput">
-    <button>load lobby</button>
+    <div class="nav-bar">
+        <a href="/">Home</a>
+        <a href="/creator">Profile creator</a>
+        <a href="/random">Random profile</a>
+    </div>
 
-    <button>create new lobby</button>
+    <div class="landing-options">
+        <div class="landing-option-container">
+            <h1>Create lobby</h1>
+            <input type="text" name="lobbyCode" id="createLobbyCodeInput" placeholder="No lobby created..." disabled>
+            <button onclick="createLobby()">create lobby</button>
+        </div>
 
-    <button>free style</button>
+        <div class="landing-option-container">
+            <h1>View lobby</h1>
+            <input type="text" name="lobbyCode" id="viewLobbyCodeInput" placeholder="Enter lobby code...">
+            <button onclick="viewLobby()">View lobby</button>
+        </div>
+
+        <div class="landing-option-container">
+            <h1>Create profile</h1>
+            <input type="text" name="lobbyCode" id="createProfileInput" placeholder="Enter lobby code... (empty = public)">
+            <button onclick="createProfileAdv()">create profile</button>
+        </div>
+    </div>
 </body>
-</html>
+<script src="/scripts/lobbyhandlercli.js"></script>
+<script src="/scripts/globalcli.js"></script>
+</html> 

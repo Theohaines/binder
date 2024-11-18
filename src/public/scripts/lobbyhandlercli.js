@@ -18,6 +18,10 @@ async function createLobby(){
         navigator.clipboard.writeText(createLobbyCodeInput.value);
         
         createLobbyCodeInput.value = lobbyId;
+        document.getElementById("viewLobbyCodeInput").value = lobbyId;
+        document.getElementById("createProfileInput").value = lobbyId;
+
+        viewLobby();
     }).catch(error => {
         console.error('Fetch error:', error);
     });

@@ -37,7 +37,7 @@ function prettyLoadProfile(profile){
     profileName.textContent = profile.P_NAME;
 
     const profileAge = document.getElementById("profileAge");
-    profileAge.textContent = profile.P_Age;
+    profileAge.textContent = profile.P_AGE;
 
     const profileLocation = document.getElementById("profileLocation");
     profileLocation.textContent = profile.P_LOCATION;

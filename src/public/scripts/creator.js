@@ -1,4 +1,5 @@
 const creatorTextArea = document.getElementById("creatorTextArea");
+const uploadImageForm = document.getElementById("uploadImageForm");
 var currentElement = null
 var currentType = null
 var currentPart = null
@@ -57,4 +58,56 @@ function parseInterestsAndMam(string){
         newEntry.textContent = string;
         currentElement.append(newEntry)
     }
+}
+
+function validateBeforeUpload(){
+    const profileImage = document.getElementById("profileImage");
+
+    if (!profileImage.src.trim() || profileImage.src.trim() == ""){
+        alert("FUCK");
+        return;
+    }
+
+    console.log("ran")
+    console.log(profileImage.src, profileImage.src.trim())
+}
+
+uploadImageForm.addEventListener('submit', handleSubmit);
+
+async function handleSubmit(event) {
+    /** @type {HTMLFormElement} */
+    const form = event.currentTarget;
+    const url = new URL(form.action);
+    const formData = new FormData(form);
+    const searchParams = new URLSearchParams(formData);
+
+    /** @type {Parameters<fetch>[1]} */
+    const fetchOptions = {
+    method: form.method,
+    };
+
+    if (form.method.toLowerCase() === 'post') {
+    if (form.enctype === 'multipart/form-data') {
+        fetchOptions.body = formData;
+    } else {
+        fetchOptions.body = searchParams;
+    }
+    } else {
+    url.search = searchParams;
+    }
+
+    event.preventDefault();
+
+    const res = await fetch(url, fetchOptions);
+
+    if (!res.ok){
+        console.log(res)
+    }
+
+    const json = await res.json();
+    console.log(json)
+
+    const profileImage = document.getElementById("profileImage");
+
+    profileImage.src = "/media/uploads/" + JSON.parse(json);
 }

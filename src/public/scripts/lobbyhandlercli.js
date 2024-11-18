@@ -10,7 +10,14 @@ async function createLobby(){
         }
         return response.json();
     }) .then(data => {
-        createLobbyCodeInput.value = data.split('"').join("");
+        let lobbyId = data.split('"').join("");
+        createLobbyCodeInput.value = "https://binder.theohaines.xyz/creator/?lobbyId=" + lobbyId;
+        createLobbyCodeInput.select();
+        createLobbyCodeInput.setSelectionRange(0, 99999);
+
+        navigator.clipboard.writeText(createLobbyCodeInput.value);
+        
+        createLobbyCodeInput.value = lobbyId;
     }).catch(error => {
         console.error('Fetch error:', error);
     });

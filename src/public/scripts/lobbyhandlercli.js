@@ -113,7 +113,17 @@ function init(){
         document.getElementById("viewLobbyCodeInput").value = lobbyId;
         document.getElementById("createProfileInput").value = lobbyId;
         viewLobby();
+
+        refreshLobbyView();
     }
+}
+
+function refreshLobbyView(){
+    var intervalId = window.setInterval(function(){
+        if (document.getElementById("viewLobbyCodeInput").value != ""){
+            viewLobby();
+        }
+    }, 10000);
 }
 
 init();

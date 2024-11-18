@@ -111,6 +111,7 @@ function init(){
         }
     
         document.getElementById("viewLobbyCodeInput").value = lobbyId;
+        document.getElementById("createProfileInput").value = lobbyId;
         viewLobby();
     }
 }

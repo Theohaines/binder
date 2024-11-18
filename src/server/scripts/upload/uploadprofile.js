@@ -2,12 +2,12 @@ const sqlite3 = require("sqlite3");
 const path = require("path");
 
 async function uploadProfile(lobbyId, profileImage, profileName, profileAge, profileLocation, aboutMeText, interestsList, mamList, friendlyNameInput){
-/*     let validatedBody = await validateBody(profileImage, profileName, profileAge, profileLocation, aboutMeText, interestsList, mamList, friendlyNameInput);
+    let validatedBody = await validateBody(profileImage, profileName, profileAge, profileLocation, aboutMeText, interestsList, mamList, friendlyNameInput);
 
     if (!validatedBody){
         return false;
     }
- */
+
     let validateUpload = await uploadToDB(lobbyId, profileImage, profileName, profileAge, profileLocation, aboutMeText, interestsList, mamList, friendlyNameInput);
 
     if (!validateUpload){
@@ -18,37 +18,43 @@ async function uploadProfile(lobbyId, profileImage, profileName, profileAge, pro
 }
 
 async function validateBody(profileName, profileAge, profileLocation, aboutMeText, interestsList, mamList, friendlyNameInput) {
-    if (profileName.trim() == "" || profileName == "Click me to edit!"){
-        return false;
-    }
+    let validated = await new Promise((resolve, reject) => {
+        if (profileName.trim() == "" || profileName == "Click me to edit!"){
+            resolve(false);
+        }
+    
+        if (profileAge.trim() == "" || profileAge == "Click me to edit!"){
+            resolve(false);
+        }
+    
+        if (profileLocation.trim() == "" || profileLocation == "Click me to edit!"){
+            resolve(false);
+        }
+    
+        if (aboutMeText == "Click me to edit!" || aboutMeText.trim() == ""){
+            resolve(false);
+        } else if (aboutMeText < 30) {
+            resolve(false);
+        }
+    
+        if (interestsList == "Click me to edit!"){
+            resolve(false);
+        }
 
-    if (profileAge.trim() == "" || profileAge == "Click me to edit!"){
-        return false
-    }
+        if (mamList == "Click me to edit!"){
+            resolve(false);
+        }
 
-    if (profileLocation.trim() == "" || profileLocation == "Click me to edit!"){
-        return false;
-    }
+    
+        if (friendlyNameInput == "" || friendlyNameInput == "Click me to edit!"){
+            resolve(false);
+        }
 
-    if (aboutMeText == "Click me to edit!" || aboutMeText.trim() == ""){
-        return false;
-    } else if (aboutMeText.trim().length < 30) {
-        return false;
-    }
 
-    if (interestsList == "Click me to edit!"){
-        return false;
-    }
+        resolve(true);
+    });
 
-    if (mamList == "Click me to edit!"){
-        return false;
-    }
-
-    if (friendlyNameInput.trim() == "" || friendlyNameInput == "Click me to edit!"){
-        return false;
-    }
-
-    return true;
+    return validated;
 }
 
 async function uploadToDB(lobbyId, profileImage, profileName, profileAge, profileLocation, aboutMeText, interestsList, mamList, friendlyNameInput) {

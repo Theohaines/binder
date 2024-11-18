@@ -212,7 +212,7 @@ async function submitProfileToDB(lobbyId){
         }
         response.json()
     }) .then(data => {
-        //Cool profile stuff I might do...
+        window.location = "/?lobbyId=" + lobbyId;
     }).catch(error => {
         console.error('Fetch error:', error);
     });
@@ -223,6 +223,7 @@ function pageLoad(){
     const lobbyId = urlParams.get('lobbyId');
 
     lobbyCodeInput.value = lobbyId;
+    currentLobbyHeading.textContent = "Current lobby: " + lobbyId;
 }
 
 pageLoad();

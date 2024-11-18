@@ -11,6 +11,7 @@
 <body>
     <div class="nav-bar">
         <img src="/media/logo.png" onclick="redirect('/')">
+        <h3 id="currentLobbyHeading">Current lobby: </h3>
     </div>
 
     <div class="creator-container">
@@ -61,9 +62,9 @@
             <h3>Profile image</h3>
             <h5>Click the button below to upload a file!</h5>
 
-            <form method="post" id="uploadImageForm" enctype="multipart/form-data" action="/upload">
+            <form method="post" id="uploadImageForm" class="upload-image-form" enctype="multipart/form-data" action="/upload">
                 <input id="profileImageUpload" class="profile-image-upload" type="file" name="profileImage">
-                <input id="profileImageUploadButton" class="profile-image-upload-submit" type="submit" value="submit">
+                <input id="profileImageUploadButton" class="creator-tools-button" type="submit" value="submit">
             </form>
             
             <div class="ruler"></div>
@@ -81,11 +82,11 @@
             <div class="ruler"></div>
             <input id="lobbyCodeInput" class="lobby-code-input" type="text" placeholder="lobby code...">
             <input id="friendlyNameInput" class="lobby-code-input" type="text" placeholder="Friendly name... (your name)">
-            <button class="profile-image-upload-submit" onclick="validateBeforeUpload()">submit</button>
+            <button class="creator-tools-button-small" onclick="validateBeforeUpload()">submit</button>
 
             <div class="ruler"></div>
             <h3>See example profile (opens in new tab)</h3>
-            <button class="profile-image-upload-submit" onclick="redirectT('/profile/?id=7&lobbyId=public')">Example profile</button>
+            <button class="creator-tools-button-small" onclick="redirectT('/profile/?id=7&lobbyId=public')">Example profile</button>
         </div>
     </div>
 </body>

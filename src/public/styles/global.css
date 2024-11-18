@@ -22,9 +22,10 @@ body {
     width: 100%;
 
     display: flex;
-    flex-flow: row;
+    flex-flow: column;
     justify-content: center;
-    column-gap: 10px;
+    align-items: center;
+    row-gap: 10px;
 
     background-color: white;
     padding-top: 10px;
@@ -32,7 +33,7 @@ body {
 }
 
 .nav-bar img {
-    width: auto;
+    width: 420px;
     height: 40px;
 }
 
@@ -44,4 +45,42 @@ body {
 
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+.large-button {
+    background: rgb(253,78,105);
+    background: linear-gradient(90deg, rgba(253,78,105,1) 0%, rgba(249,78,107,1) 100%);
+
+    border: none;
+    border-radius: 6px;
+    height: 40px;
+    width: 80%;
+    padding: 6px 12px;
+    color: black;
+    font-weight: 600;
+}
+
+.large-button:hover {
+    transition: 1s;
+    background: rgb(253,78,105);
+    background: linear-gradient(0deg, rgba(255,109,89,1) 0%, rgba(254,88,100,1) 35%, rgba(254,70,109,1) 100%);
+    cursor: pointer;
+}
+
+.freeform-button {
+    background: rgb(253,78,105);
+    background: linear-gradient(90deg, rgba(253,78,105,1) 0%, rgba(249,78,107,1) 100%);
+
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    color: black;
+    font-weight: 600;
+}
+
+.freeform-button:hover {
+    transition: 1s;
+    background: rgb(253,78,105);
+    background: linear-gradient(0deg, rgba(255,109,89,1) 0%, rgba(254,88,100,1) 35%, rgba(254,70,109,1) 100%);
+    cursor: pointer;
 }

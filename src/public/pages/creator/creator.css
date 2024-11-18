@@ -53,7 +53,52 @@
     height: 100px;
 
     resize: none;
+}
 
+.upload-image-form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+}
+
+.creator-tools-button {
+    background: rgb(253,78,105);
+    background: linear-gradient(90deg, rgba(253,78,105,1) 0%, rgba(249,78,107,1) 100%);
+
+    border: none;
+    border-radius: 6px;
+    height: 40px;
+    width: 100%;
+    padding: 6px 12px;
+    color: black;
+    font-weight: 600;
+}
+
+.creator-tools-button-small {
+    background: rgb(253,78,105);
+    background: linear-gradient(90deg, rgba(253,78,105,1) 0%, rgba(249,78,107,1) 100%);
+
+    border: none;
+    border-radius: 6px;
+    height: 40px;
+    width: 80%;
+    padding: 6px 12px;
+    color: black;
+    font-weight: 600;
+}
+
+.creator-tools-button-small:hover {
+    transition: 1s;
+    background: rgb(253,78,105);
+    background: linear-gradient(0deg, rgba(255,109,89,1) 0%, rgba(254,88,100,1) 35%, rgba(254,70,109,1) 100%);
+    cursor: pointer;
+}
+
+.creator-tools-button:hover {
+    transition: 1s;
+    background: rgb(253,78,105);
+    background: linear-gradient(0deg, rgba(255,109,89,1) 0%, rgba(254,88,100,1) 35%, rgba(254,70,109,1) 100%);
+    cursor: pointer;
 }
 
 .profile-image-upload {
@@ -70,6 +115,11 @@
 .lobby-code-input {
     padding: 6px 12px;
     margin-bottom: 10px;
+}
+
+.creator-tools input[type="text"]{
+    width: 80%;
+    text-align: center;
 }
 
 @media only screen and (max-width: 600px) {

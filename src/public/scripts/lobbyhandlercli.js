@@ -54,11 +54,12 @@ function prettyListLobby(lobby) {
         profileEntry.appendChild(profileEntryName);
         
         var profileEntryCreator = document.createElement("H4");
-        profileEntryCreator.textContent = "Created by: " + profile.P_CREATOR;
+        profileEntryCreator.textContent = "| Created by: " + profile.P_CREATOR;
         profileEntry.appendChild(profileEntryCreator);
 
         var profileEntryButton = document.createElement("button");
         profileEntryButton.textContent = "Click to view!";
+        profileEntryButton.className = "freeform-button"
         profileEntryButton.setAttribute("onClick", "redirectProfileViaID("+profile.P_ID+")")
         profileEntry.appendChild(profileEntryButton);
     }
@@ -92,3 +93,19 @@ function redirectProfileViaID(id){
     
     window.location.href = "/profile?id=" + id + "&lobbyId=" + viewLobbyCodeInput.value;
 }
+
+function init(){
+    if (document.getElementById("viewLobbyCodeInput")){
+        const urlParams = new URLSearchParams(window.location.search);
+        const lobbyId = urlParams.get('lobbyId');
+
+        if (lobbyId == null){
+            return;
+        }
+    
+        document.getElementById("viewLobbyCodeInput").value = lobbyId;
+        viewLobby();
+    }
+}
+
+init();

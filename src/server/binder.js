@@ -150,8 +150,10 @@ app.use('/uploadprofile', async (req, res) => {
 
     if (!validatedProfile){
         res.sendStatus(400);
+        return;
     } else if (validatedProfile == "err"){
         res.sendStatus(500)
+        return;
     }
 
     res.sendStatus(200);

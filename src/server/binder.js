@@ -23,7 +23,7 @@ var storage = multer.diskStorage({
 })
 const upload = multer({
     storage: storage,
-    limits: { fileSize: 10000000 } // 1MB file size limit
+    limits: { fileSize: 26214400 } // 1MB file size limit
 }).single('profileImage'); // 'myFile' is the name attribute of the file input field
 
 function checkFileType(file, cb) {

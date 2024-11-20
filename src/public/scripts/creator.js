@@ -7,9 +7,19 @@ var currentPart = null
 var customImageUsed = false
 
 function onClickEdit(element, type, part){
-    if (currentElement != null && currentElement.textContent == "" || currentType == "image") {
-        if (type == "image" && currentElement.src == ""){
-            currentElement.src = "/media/clicktoedit.png"
+    if (currentElement != null && currentElement.textContent == "") {
+        if (type == "interests" || type == "mam"){
+            currentElement.innerHTML = "";
+            let newEntry = document.createElement("div");
+
+            if (currentType == "interests"){
+                newEntry.className = "interest-bubble";
+            } else {
+                newEntry.className = "mam-bubble";
+            }
+
+            newEntry.textContent = "Click me to edit!";
+            currentElement.append(newEntry)
         } else {
             currentElement.textContent = "Click me to edit!"
         }
@@ -22,15 +32,18 @@ function onClickEdit(element, type, part){
         creatorTextArea.value = ("Now editing:", element.class)
     } else if (type == "part"){
         creatorTextArea.value = part
-    } else if (type == "image"){
-        creatorTextArea.value = element.src
+    } else if (type == "interests" || type == "mam"){
+        creatorTextArea.value = "";
+
+        for (var sub of currentElement.children){
+            creatorTextArea.value += sub.textContent + "\n";
+        }
     } else {
         creatorTextArea.value = element.textContent;
     }
 }
 
 function updateTextArea(){
-
     if (currentType == "interests" || currentType == "mam"){
         parseInterestsAndMam(creatorTextArea.value);
     } else if (currentType == "part") {
@@ -168,7 +181,7 @@ function validateBeforeUpload(){
     const lobbyCodeInput = document.getElementById("lobbyCodeInput");
 
     if (lobbyCodeInput.value.trim() == ""){
-        submitProfileToDB('public');
+        //Removed public lobby
     } else {
         submitProfileToDB(lobbyCodeInput.value);
     }

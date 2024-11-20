@@ -26,6 +26,9 @@ function prettyLayoutLobby(){
     gameView.style.display = "flex";
 
     localStorage.setItem("lobbyId", lobbyId);
+    
+    const createLobbyCodeInput = document.getElementById("createLobbyCodeInput");
+    createLobbyCodeInput.value = localStorage.getItem("lobbyId");
 }
 
 function joinGame(){
@@ -101,7 +104,7 @@ async function createProfileAdv() {
             throw new Error('Network response was not ok');
         }
     }) .then(data => {
-        window.redirect("/creator?lobbyId=" + localStorage.getItem("lobbyId"));
+        window.redirect("/creator");
     }).catch(error => {
         console.error('Fetch error:', error);
     });
@@ -113,7 +116,7 @@ function redirectProfileViaID(id){
 
 function leaveGame(){
     localStorage.setItem("lobbyId", "null");
-    window.location.reload();
+    window.location.href = "/";
 }
 
 // LANDING ONLY

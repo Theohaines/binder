@@ -196,11 +196,6 @@ async function submitProfileToDB(lobbyId){
         mamList.push(entry.textContent);
     }
 
-
-    if (!lobbyId){
-        lobbyId = 'public'
-    }
-
     fetch('/uploadprofile', {  
         method: 'post',
         headers: {'Content-Type': 'application/json'},
@@ -212,18 +207,15 @@ async function submitProfileToDB(lobbyId){
         }
         response.json()
     }) .then(data => {
-        window.location = "/?lobbyId=" + lobbyId;
+        window.location = "/"
     }).catch(error => {
         console.error('Fetch error:', error);
     });
 }
 
 function pageLoad(){
-    const urlParams = new URLSearchParams(window.location.search);
-    const lobbyId = urlParams.get('lobbyId');
-
-    lobbyCodeInput.value = lobbyId;
-    currentLobbyHeading.textContent = "Current lobby: " + lobbyId;
+    lobbyCodeInput.value = localStorage.getItem("lobbyId");
+    currentLobbyHeading.textContent = "Current lobby: " + localStorage.getItem("lobbyId");
 }
 
 pageLoad();

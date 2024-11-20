@@ -2,7 +2,7 @@ var currentType = "interests";
 
 function loadProfileViaID(){
     const urlParams = new URLSearchParams(window.location.search);
-    const lobbyId = urlParams.get('lobbyId');
+    const lobbyId = localStorage.getItem("lobbyId");
     const id = urlParams.get('id');
     
     fetch('/loadprofile', {  

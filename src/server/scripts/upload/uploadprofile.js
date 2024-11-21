@@ -1,20 +1,21 @@
 const sqlite3 = require("sqlite3");
 const path = require("path");
+const global = require("../global.js")
 
 async function uploadProfile(lobbyId, profileImage, profileName, profileAge, profileLocation, aboutMeText, interestsList, mamList, friendlyNameInput){
     let validatedBody = await validateBody(profileImage, profileName, profileAge, profileLocation, aboutMeText, interestsList, mamList, friendlyNameInput);
 
     if (!validatedBody){
-        return false;
+        return [400, await global.errorHandler("E", 4)];
     }
 
     let validateUpload = await uploadToDB(lobbyId, profileImage, profileName, profileAge, profileLocation, aboutMeText, interestsList, mamList, friendlyNameInput);
 
     if (!validateUpload){
-        return "err";
+        return [500, await global.errorHandler("E", 5)];
     }
 
-    return true;
+    return [200, true];
 }
 
 async function validateBody(profileName, profileAge, profileLocation, aboutMeText, interestsList, mamList, friendlyNameInput) {

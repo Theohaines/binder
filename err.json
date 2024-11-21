@@ -1,0 +1,18 @@
+{
+    "E" : [
+        "E001: Something went wrong when creating the lobby! Please try again later.",
+        "E002: Something went wrong when checking if the lobby exists! Please try again later.",
+        "E003: We couldn't find a game with that code, are you sure the code is correct?",
+        "E004: Something went wrong when getting profiles from the game! Please try again later.",
+        "E005: Profile failed validation, have you completely filled out the profile?",
+        "E006: Something went wrong when inserting your profile into the database! Please try again later.",
+        "E007: Something went wrong when loading the profile from the database! Please try again later.",
+        "E008: Either the lobby code you supplied is incorrect or you don't have the correct ID to check this profile!"
+    ],
+    "W" : [
+
+    ],
+    "I" : [
+
+    ]
+}

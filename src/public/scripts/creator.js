@@ -7,9 +7,19 @@ var currentPart = null
 var customImageUsed = false
 
 function onClickEdit(element, type, part){
-    if (currentElement != null && currentElement.textContent == "" || currentType == "image") {
-        if (type == "image" && currentElement.src == ""){
-            currentElement.src = "/media/clicktoedit.png"
+    if (currentElement != null && currentElement.textContent == "") {
+        if (type == "interests" || type == "mam"){
+            currentElement.innerHTML = "";
+            let newEntry = document.createElement("div");
+
+            if (currentType == "interests"){
+                newEntry.className = "interest-bubble";
+            } else {
+                newEntry.className = "mam-bubble";
+            }
+
+            newEntry.textContent = "Click me to edit!";
+            currentElement.append(newEntry)
         } else {
             currentElement.textContent = "Click me to edit!"
         }
@@ -22,15 +32,18 @@ function onClickEdit(element, type, part){
         creatorTextArea.value = ("Now editing:", element.class)
     } else if (type == "part"){
         creatorTextArea.value = part
-    } else if (type == "image"){
-        creatorTextArea.value = element.src
+    } else if (type == "interests" || type == "mam"){
+        creatorTextArea.value = "";
+
+        for (var sub of currentElement.children){
+            creatorTextArea.value += sub.textContent + "\n";
+        }
     } else {
         creatorTextArea.value = element.textContent;
     }
 }
 
 function updateTextArea(){
-
     if (currentType == "interests" || currentType == "mam"){
         parseInterestsAndMam(creatorTextArea.value);
     } else if (currentType == "part") {
@@ -168,13 +181,13 @@ function validateBeforeUpload(){
     const lobbyCodeInput = document.getElementById("lobbyCodeInput");
 
     if (lobbyCodeInput.value.trim() == ""){
-        submitProfileToDB('public');
+        //Removed public lobby
     } else {
-        submitProfileToDB(lobbyCodeInput.value);
+        submitProfileToDB();
     }
 }
 
-async function submitProfileToDB(lobbyId){
+async function submitProfileToDB(){
     const profileImage = document.getElementById("profileImage").src;
     const profileName = document.getElementById("profileName").textContent;
     const profileAge = document.getElementById("profileAge").textContent;
@@ -184,6 +197,8 @@ async function submitProfileToDB(lobbyId){
 
     const interestsListElement = document.getElementById("interestsList");
     const mamListElement = document.getElementById("mamList");
+
+    let lobbyId = localStorage.getItem("lobbyId")
 
     let interestsList = [];
     let mamList = [];
@@ -196,34 +211,28 @@ async function submitProfileToDB(lobbyId){
         mamList.push(entry.textContent);
     }
 
-
-    if (!lobbyId){
-        lobbyId = 'public'
-    }
-
     fetch('/uploadprofile', {  
         method: 'post',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({lobbyId, profileImage, profileName, profileAge, profileLocation, aboutMeText, interestsList, mamList, friendlyNameInput})
     }).then(response => {
-        if (!response.ok) {
-            alert("Status code: " + response.status + ". Did you enter a valid lobby code?");
-            throw new Error('Network response was not ok');
-        }
-        response.json()
+        return response.json()
     }) .then(data => {
-        window.location = "/?lobbyId=" + lobbyId;
+        res = JSON.parse(data);
+        if (res[0] != 200){
+            alert(res[0] + ", " + res[1]);
+            return;
+        }
+
+        window.location = "/";
     }).catch(error => {
         console.error('Fetch error:', error);
     });
 }
 
 function pageLoad(){
-    const urlParams = new URLSearchParams(window.location.search);
-    const lobbyId = urlParams.get('lobbyId');
-
-    lobbyCodeInput.value = lobbyId;
-    currentLobbyHeading.textContent = "Current lobby: " + lobbyId;
+    lobbyCodeInput.value = localStorage.getItem("lobbyId");
+    currentLobbyHeading.textContent = "Current lobby: " + localStorage.getItem("lobbyId");
 }
 
 pageLoad();

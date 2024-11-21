@@ -84,3 +84,10 @@ body {
     background: linear-gradient(0deg, rgba(255,109,89,1) 0%, rgba(254,88,100,1) 35%, rgba(254,70,109,1) 100%);
     cursor: pointer;
 }
+
+@media only screen and (max-width: 600px) {
+    .nav-bar img {
+        width: 99%;
+        height: 40px;
+    }
+}

@@ -1,15 +1,19 @@
+.landing-container {
+    width: 95%;
+}
+
 .landing-options {
     margin-top: 25px;
     width: 100%;
     
     display: flex;
     flex-flow: row;
-    justify-content: space-evenly;    
+    justify-content: space-between;    
 }
 
 .landing-option-container {
     text-align: center;
-    width: 30vw;
+    width: 49%;
 
     background-color: white;
     border: solid 2px black;
@@ -29,19 +33,19 @@
     text-align: center;
 }
 
-.lobby-view {
+.game-view {
     margin-top: 10px;
 
-    padding: 5px;
-
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
-    width: 90vw;
+    width: 100%;
     background-color: white;
     border: solid 2px black;
+
+    padding-bottom: 5px;
 }
 
 .lobby-list {
@@ -70,22 +74,40 @@
 
 .lobby-entry button {
     padding: 6px 12px;
+    margin-left: auto;
 }
 
-.how-to-play {
-    text-align: center;
-    margin-top: 10px;
+.profiles-list {
+    width: 40%;
+}
 
-    padding: 5px;
+.game-options {
+    width: 40%;
 
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-top: 5px;
+}
 
-    width: 90vw;
-    background-color: white;
-    border: solid 2px black;
+.game-options button {
+    width: 45%;
+
+    background: rgb(253,78,105);
+    background: linear-gradient(90deg, rgba(253,78,105,1) 0%, rgba(249,78,107,1) 100%);
+    height: 40px;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    color: black;
+    font-weight: 600;
+}
+
+.game-options button:hover {
+    transition: 1s;
+    background: rgb(253,78,105);
+    background: linear-gradient(0deg, rgba(255,109,89,1) 0%, rgba(254,88,100,1) 35%, rgba(254,70,109,1) 100%);
+    cursor: pointer;
 }
 
 @media only screen and (max-width: 600px) {
@@ -100,5 +122,9 @@
     .landing-option-container {
         text-align: center;
         width: 90vw;
+    }
+
+    .profiles-list {
+        width: 90%;
     }
 }

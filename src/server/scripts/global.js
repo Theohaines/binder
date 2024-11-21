@@ -86,4 +86,34 @@ async function errorHandler(type, i){
     return message;
 }
 
-module.exports = {validateLobbyExists, loadProfile, errorHandler}
+async function getTheme(lobbyId) {
+    let db = new sqlite3.Database(path.resolve('db.sqlite'));
+
+    let response = await new Promise((resolve, reject) => {
+        db.all("SELECT L_THEME FROM lobbys WHERE L_PASS = ?", [lobbyId], (err, rows) => {
+            if (err){
+                console.log(err);
+                resolve("err");
+            }
+
+            if (!rows[0]){
+                resolve(false)
+            } else {
+                resolve(rows[0])
+            }
+
+        });
+    });
+
+    db.close();
+
+    if (response == "err"){
+        return [500, await errorHandler("E", 10)];
+    } else if (response == false){
+        return [400, await errorHandler("E", 9)]
+    } else {
+        return [200, response]
+    }
+}
+
+module.exports = {validateLobbyExists, loadProfile, errorHandler, getTheme}

@@ -91,7 +91,7 @@
 }
 
 .game-options button {
-    width: 45%;
+    width: 33%;
 
     background: rgb(253,78,105);
     background: linear-gradient(90deg, rgba(253,78,105,1) 0%, rgba(249,78,107,1) 100%);

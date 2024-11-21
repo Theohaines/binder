@@ -129,6 +129,50 @@ function leaveGame(){
     window.location.href = "/";
 }
 
+function updateTheme(){
+    const lobbyId = localStorage.getItem("lobbyId");
+
+    fetch('/updatetheme', {  
+        method: 'post',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({lobbyId})
+    }).then(response => {
+        return response.json();
+    }) .then(data => {
+        res = JSON.parse(data);
+        if (res[0] != 200){
+            alert(res[0] + ", " + res[1]);
+            return;
+        }
+
+        document.getElementById("currentThemeText").textContent = "Current theme: " + res[1];
+    }).catch(error => {
+        console.error('Fetch error:', error);
+    });
+}
+
+function getTheme(){
+    const lobbyId = localStorage.getItem("lobbyId");
+
+    fetch('/gettheme', {  
+        method: 'post',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({lobbyId})
+    }).then(response => {
+        return response.json();
+    }) .then(data => {
+        res = JSON.parse(data);
+        if (res[0] != 200){
+            alert(res[0] + ", " + res[1]);
+            return;
+        }
+
+        document.getElementById("currentThemeText").textContent = "Current theme: " + res[1].L_THEME;
+    }).catch(error => {
+        console.error('Fetch error:', error);
+    });
+}
+
 // LANDING ONLY
 
 function init(){
@@ -147,6 +191,7 @@ function init(){
             const gameView = document.getElementById("gameView")
             gameView.style.display = "flex";
 
+            getTheme();
             viewLobby();
             refreshLobbyView();
         }
@@ -157,8 +202,9 @@ function refreshLobbyView(){
     var intervalId = window.setInterval(function(){
         if (document.getElementById("gameView").style.display == "flex"){
             viewLobby();
+            getTheme();
         }
-    }, 10000);
+    }, 1000);
 }
 
 function toggleLobbyView(){

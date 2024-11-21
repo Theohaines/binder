@@ -12,6 +12,7 @@ function loadProfileViaID(){
     }).then(response => {
         return response.json();
     }) .then(data => {
+        res = JSON.parse(data);
         if (res[0] != 200){
             alert(res[0] + ", " + res[1]);
             return;

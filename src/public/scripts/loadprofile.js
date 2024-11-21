@@ -10,13 +10,13 @@ function loadProfileViaID(){
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({lobbyId, id})
     }).then(response => {
-        if (!response.ok) {
-            alert("Status code: " + response.status + ". Did you enter a valid lobby code or post ID? [WILL REDIRECT TO LANDING PAGE]");
-            window.location.href = "/";
-            throw new Error('Network response was not ok');
-        }
         return response.json();
     }) .then(data => {
+        if (res[0] != 200){
+            alert(res[0] + ", " + res[1]);
+            return;
+        }
+
         prettyLoadProfile(data);
     }).catch(error => {
         console.error('Fetch error:', error);
@@ -27,6 +27,7 @@ function loadProfileViaID(){
 
 function prettyLoadProfile(profile){
     profile = JSON.parse(profile);
+    profile = profile[1]
 
     console.log(profile);
 

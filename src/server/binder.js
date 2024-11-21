@@ -91,28 +91,28 @@ app.use('/upload', (req, res) => {
 app.use('/createlobby', async (req, res) => {
     let lobbyId = await createlobby.createLobby();
 
-    if (!lobbyId){
-        res.status(500).send("500, Internal server error!")
+    if (lobbyId[0] != 200){
+        res.status(lobbyId[0]).json(JSON.stringify(lobbyId))
     } else {
-        res.status(200).json(JSON.stringify(lobbyId));
+        res.status(lobbyId[0]).json(JSON.stringify(lobbyId));
     }
 });
 
 app.use('/viewlobby', async (req, res) => {
     let validated = await global.validateLobbyExists(req.body.lobbyId);
 
-    if (!validated){
-        res.status(400).send("400, lobby does not exist");
+    if (validated[0] == 400){
+        res.status(validated[0]).json(JSON.stringify(validated));
         return;
-    } else if (validated == "err") {
-        res.status(500).send("500, Internal server error!");
+    } else if (validated[0] == 500) {
+        res.status(validated[0]).json(JSON.stringify(validated));
         return;
     }
 
     let lobby = await loadlobby.loadLobby(req.body.lobbyId);
 
-    if (!lobby){
-        res.sendStatus(500);
+    if (lobby[0] == 500){
+        res.status(500).json(JSON.stringify(lobby));
         return;
     }
 
@@ -122,37 +122,41 @@ app.use('/viewlobby', async (req, res) => {
 app.use('/validatelobby', async (req, res) => {
     let validated = await global.validateLobbyExists(req.body.lobbyId);
 
-    if (!validated){
-        res.status(400).send("400, lobby does not exist")
-    } else if (validated == "err") {
-        res.status(500).send("500, Internal server error!")
+    if (validated[0] == 400){
+        res.status(validated[0]).json(JSON.stringify(validated));
+        return;
+    } else if (validated[0] == 500) {
+        res.status(validated[0]).json(JSON.stringify(validated));
+        return;
     }
 
     res.sendStatus(200);
 })
 
 app.use('/uploadprofile', async (req, res) => {
-    console.log(req.body)
+    console.log(req.body.lobbyId)
 
     //First we validate the lobby code
 
     let validated = await global.validateLobbyExists(req.body.lobbyId);
 
-    if (!validated){
-        res.status(400).send("400, lobby does not exist")
-    } else if (validated == "err") {
-        res.status(500).send("500, Internal server error!")
+    if (validated[0] == 400){
+        res.status(validated[0]).json(JSON.stringify(validated));
+        return;
+    } else if (validated[0] == 500) {
+        res.status(validated[0]).json(JSON.stringify(validated));
+        return;
     }
 
     //If that validates fine then we can begin validating the rest of the body
 
     var validatedProfile = await uploadprofile.uploadProfile(req.body.lobbyId, req.body.profileImage, req.body.profileName, req.body.profileAge, req.body.profileLocation, req.body.aboutMeText, req.body.interestsList, req.body.mamList, req.body.friendlyNameInput);
 
-    if (!validatedProfile){
-        res.sendStatus(400);
+    if (validatedProfile[0] == 400){
+        res.status(validatedProfile[0]).json(JSON.stringify(validatedProfile));
         return;
-    } else if (validatedProfile == "err"){
-        res.sendStatus(500)
+    } else if (validatedProfile[0] == 500) {
+        res.status(validatedProfile[0]).json(JSON.stringify(validatedProfile));
         return;
     }
 
@@ -164,17 +168,24 @@ app.use('/loadprofile', async (req, res) => {
 
     let validated = await global.validateLobbyExists(req.body.lobbyId);
 
-    if (!validated){
-        res.status(400).send("400, lobby does not exist")
-    } else if (validated == "err") {
-        res.status(500).send("500, Internal server error!")
+    if (validated[0] == 400){
+        res.status(validated[0]).json(JSON.stringify(validated));
+        return;
+    } else if (validated[0] == 500) {
+        res.status(validated[0]).json(JSON.stringify(validated));
+        return;
     }
 
     let profile = await global.loadProfile(req.body.id, req.body.lobbyId);
 
-    if (!profile){
-        res.status(400).send("400, profile does not exist")
+    if (profile[0] == 400){
+        res.status(profile[0]).json(JSON.stringify(profile));
+        return;
+    } else if (profile[0] == 500) {
+        res.status(profile[0]).json(JSON.stringify(profile));
+        return;
     } else {
-        res.status(200).json(JSON.stringify(profile));
+        res.status(profile[0]).json(JSON.stringify(profile));
+        return;
     }
 });

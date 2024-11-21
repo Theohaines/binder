@@ -2,6 +2,8 @@ const sqlite3 = require("sqlite3");
 const path = require("path");
 const uuid = require("uuid").v4;
 
+const global = require("../global.js");
+
 async function createLobby(){
     var db = new sqlite3.Database(path.resolve("db.sqlite"));
     let pass = uuid();
@@ -20,9 +22,9 @@ async function createLobby(){
     db.close();
 
     if (response){
-        return pass;
+        return [200, pass];
     } else {
-        return false;
+        return [500, await global.errorHandler("E", 0)];
     }
 }
 

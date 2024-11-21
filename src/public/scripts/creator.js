@@ -183,11 +183,11 @@ function validateBeforeUpload(){
     if (lobbyCodeInput.value.trim() == ""){
         //Removed public lobby
     } else {
-        submitProfileToDB(lobbyCodeInput.value);
+        submitProfileToDB();
     }
 }
 
-async function submitProfileToDB(lobbyId){
+async function submitProfileToDB(){
     const profileImage = document.getElementById("profileImage").src;
     const profileName = document.getElementById("profileName").textContent;
     const profileAge = document.getElementById("profileAge").textContent;
@@ -197,6 +197,8 @@ async function submitProfileToDB(lobbyId){
 
     const interestsListElement = document.getElementById("interestsList");
     const mamListElement = document.getElementById("mamList");
+
+    let lobbyId = localStorage.getItem("lobbyId")
 
     let interestsList = [];
     let mamList = [];
@@ -214,13 +216,15 @@ async function submitProfileToDB(lobbyId){
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({lobbyId, profileImage, profileName, profileAge, profileLocation, aboutMeText, interestsList, mamList, friendlyNameInput})
     }).then(response => {
-        if (!response.ok) {
-            alert("Status code: " + response.status + ". Did you enter a valid lobby code?");
-            throw new Error('Network response was not ok');
-        }
-        response.json()
+        return response.json()
     }) .then(data => {
-        window.location = "/"
+        res = JSON.parse(data);
+        if (res[0] != 200){
+            alert(res[0] + ", " + res[1]);
+            return;
+        }
+
+        window.location = "/";
     }).catch(error => {
         console.error('Fetch error:', error);
     });

@@ -3,12 +3,15 @@ async function createLobby(){
         method: 'post',
         headers: {'Content-Type': 'application/json'}
     }).then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
         return response.json();
     }) .then(data => {
-        lobbyId = data.split('"').join("");
+        res = JSON.parse(data);
+        if (res[0] != 200){
+            alert(res[0] + ", " + res[1]);
+            return;
+        }
+
+        lobbyId = res[1].split('"').join("");
         prettyLayoutLobby();
     }).catch(error => {
         console.error('Fetch error:', error);
@@ -50,12 +53,14 @@ async function viewLobby() {
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({"lobbyId" : joinGameInput.value})
     }).then(response => {
-        if (!response.ok) {
-            alert("Status code: " + response.status + ". Did you enter a valid lobby code?");
-            throw new Error('Network response was not ok');
-        }
         return response.json();
     }) .then(data => {
+        res = JSON.parse(data);
+        if (res[0] != 200){
+            alert(res[0] + ", " + res[1]);
+            return;
+        }
+
         prettyListLobby(data);
     }).catch(error => {
         console.error('Fetch error:', error);
@@ -68,6 +73,8 @@ function prettyListLobby(lobby) {
     lobbyList.innerHTML = ""
 
     lobby = JSON.parse(lobby)
+
+    lobby = lobby[1]
 
     for (var profile of lobby){
         var profileEntry = document.createElement("div");
@@ -99,11 +106,14 @@ async function createProfileAdv() {
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({"lobbyId" : localStorage.getItem("lobbyId")})
     }).then(response => {
-        if (!response.ok) {
-            alert("Status code: " + response.status + ". Did you enter a valid lobby code?");
-            throw new Error('Network response was not ok');
-        }
+        return response.json()
     }) .then(data => {
+        res = JSON.parse(data);
+        if (res[0] != 200){
+            alert(res[0] + ", " + res[1]);
+            return;
+        }
+
         window.redirect("/creator");
     }).catch(error => {
         console.error('Fetch error:', error);

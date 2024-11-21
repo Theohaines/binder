@@ -1,5 +1,6 @@
 const sqlite3 = require("sqlite3");
 const path = require("path");
+const global = require("../global.js")
 
 async function loadLobby(lobbyId){
     let db = new sqlite3.Database(path.resolve('db.sqlite'));
@@ -15,7 +16,11 @@ async function loadLobby(lobbyId){
         });
     });
 
-    return response;
+    if (!response){
+        return [500, await global.errorHandler("E", 3)]
+    } else {
+        return [200, response]
+    }
 }
 
 module.exports = {loadLobby}

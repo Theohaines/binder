@@ -7,12 +7,15 @@
         "E005: Profile failed validation, have you completely filled out the profile?",
         "E006: Something went wrong when inserting your profile into the database! Please try again later.",
         "E007: Something went wrong when loading the profile from the database! Please try again later.",
-        "E008: Either the lobby code you supplied is incorrect or you don't have the correct ID to check this profile!"
+        "E008: Either the lobby code you supplied is incorrect or you don't have the correct ID to check this profile!",
+        "E009: Something went wrong when updating the lobby theme! Please try again later.",
+        "E010: Something went wrong when loading the lobby theme, did you supply a correct lobby code?",
+        "E011: Something went wrong when loading the lobby theme! Please try again later."
     ],
     "W" : [
 
     ],
     "I" : [
-
+        "I001: Successfully left game. Host role destroyed."
     ]
 }

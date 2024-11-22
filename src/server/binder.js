@@ -50,8 +50,9 @@ app.use("/creator", express.static(path.resolve("src/public/pages/creator")));
 app.use("/profile", express.static(path.resolve("src/public/pages/profile")));
 
 const createlobby = require("./scripts/lobby/createlobby.js");
-const loadlobby = require("./scripts/lobby/loadlobby.js")
-const uploadprofile = require("./scripts/upload/uploadprofile.js")
+const loadlobby = require("./scripts/lobby/loadlobby.js");
+const uploadprofile = require("./scripts/upload/uploadprofile.js");
+const updatetheme = require("./scripts/lobby/updatetheme.js");
 const global = require("./scripts/global.js");
 
 app.get("/", (req, res) => {
@@ -148,9 +149,21 @@ app.use('/uploadprofile', async (req, res) => {
         return;
     }
 
+    //We need to get the theme
+
+    const theme = await global.getTheme(req.body.lobbyId);
+
+    if (theme[0] == 400){
+        res.status(theme[0]).json(JSON.stringify(theme));
+        return;
+    } else if (theme[0] == 500) {
+        res.status(theme[0]).json(JSON.stringify(theme));
+        return;
+    }
+
     //If that validates fine then we can begin validating the rest of the body
 
-    var validatedProfile = await uploadprofile.uploadProfile(req.body.lobbyId, req.body.profileImage, req.body.profileName, req.body.profileAge, req.body.profileLocation, req.body.aboutMeText, req.body.interestsList, req.body.mamList, req.body.friendlyNameInput);
+    var validatedProfile = await uploadprofile.uploadProfile(req.body.lobbyId, req.body.profileImage, req.body.profileName, req.body.profileAge, req.body.profileLocation, req.body.aboutMeText, req.body.interestsList, req.body.mamList, req.body.friendlyNameInput, theme[1].L_THEME);
 
     if (validatedProfile[0] == 400){
         res.status(validatedProfile[0]).json(JSON.stringify(validatedProfile));
@@ -160,7 +173,7 @@ app.use('/uploadprofile', async (req, res) => {
         return;
     }
 
-    res.sendStatus(200);
+    res.status(200).json(JSON.stringify([200, "ok"]));
 });
 
 app.use('/loadprofile', async (req, res) => {
@@ -186,6 +199,48 @@ app.use('/loadprofile', async (req, res) => {
         return;
     } else {
         res.status(profile[0]).json(JSON.stringify(profile));
+        return;
+    }
+});
+
+app.use('/updatetheme', async (req, res) => {
+    let themes = require('./JSON/themes.json');
+    let i = Math.floor(Math.random() * themes.theme.length);
+
+    let theme = themes.theme[i];
+
+    let response = await updatetheme.updateTheme(req.body.lobbyId, theme);
+
+    if (response[0] == 500){
+        res.status(profile[0]).json(JSON.stringify(response));
+        return;
+    } else {
+        res.status(response[0]).json(JSON.stringify(response));
+        return;
+    }
+});
+
+app.use('/gettheme', async (req, res) => {
+    let validated = await global.validateLobbyExists(req.body.lobbyId);
+
+    if (validated[0] == 400){
+        res.status(validated[0]).json(JSON.stringify(validated));
+        return;
+    } else if (validated[0] == 500) {
+        res.status(validated[0]).json(JSON.stringify(validated));
+        return;
+    }
+
+    let theme = await global.getTheme(req.body.lobbyId);
+
+    if (theme[0] == 500){
+        res.status(theme[0]).json(JSON.stringify(response));
+        return;
+    } else if (theme[0] == 400){
+        res.status(theme[0]).json(JSON.stringify(response));
+        return;
+    } else {
+        res.status(theme[0]).json(JSON.stringify(theme));
         return;
     }
 });

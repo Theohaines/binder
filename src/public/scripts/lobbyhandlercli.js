@@ -86,8 +86,12 @@ function prettyListLobby(lobby) {
         profileEntry.appendChild(profileEntryName);
         
         var profileEntryCreator = document.createElement("H4");
-        profileEntryCreator.textContent = "| Created by: " + profile.P_CREATOR;
+        profileEntryCreator.textContent = "Created by: " + profile.P_CREATOR;
         profileEntry.appendChild(profileEntryCreator);
+
+        var profileEntryTheme = document.createElement("H4");
+        profileEntryTheme.textContent = "Theme: " + profile.P_THEME;
+        profileEntry.appendChild(profileEntryTheme);
 
         var profileEntryButton = document.createElement("button");
         profileEntryButton.textContent = "Click to view!";

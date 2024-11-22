@@ -35,7 +35,7 @@ async function loadProfile(id, lobbyId) {
     let db = new sqlite3.Database(path.resolve('db.sqlite'));
 
     let response = await new Promise((resolve, reject) => {
-        db.all("SELECT P_IMAGE, P_NAME, P_AGE, P_LOCATION, P_ABOUT, P_INTERESTS, P_MAM, P_CREATOR FROM profiles WHERE P_ID = ? AND P_LOBBY = ?", [id, lobbyId], (err, rows) => {
+        db.all("SELECT P_IMAGE, P_NAME, P_AGE, P_LOCATION, P_ABOUT, P_INTERESTS, P_MAM, P_CREATOR, P_THEME FROM profiles WHERE P_ID = ? AND P_LOBBY = ?", [id, lobbyId], (err, rows) => {
             if (err){
                 console.log(err);
                 resolve("err");

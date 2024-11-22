@@ -149,9 +149,21 @@ app.use('/uploadprofile', async (req, res) => {
         return;
     }
 
+    //We need to get the theme
+
+    const theme = await global.getTheme(req.body.lobbyId);
+
+    if (theme[0] == 400){
+        res.status(theme[0]).json(JSON.stringify(theme));
+        return;
+    } else if (theme[0] == 500) {
+        res.status(theme[0]).json(JSON.stringify(theme));
+        return;
+    }
+
     //If that validates fine then we can begin validating the rest of the body
 
-    var validatedProfile = await uploadprofile.uploadProfile(req.body.lobbyId, req.body.profileImage, req.body.profileName, req.body.profileAge, req.body.profileLocation, req.body.aboutMeText, req.body.interestsList, req.body.mamList, req.body.friendlyNameInput);
+    var validatedProfile = await uploadprofile.uploadProfile(req.body.lobbyId, req.body.profileImage, req.body.profileName, req.body.profileAge, req.body.profileLocation, req.body.aboutMeText, req.body.interestsList, req.body.mamList, req.body.friendlyNameInput, theme[1].L_THEME);
 
     if (validatedProfile[0] == 400){
         res.status(validatedProfile[0]).json(JSON.stringify(validatedProfile));
@@ -161,7 +173,7 @@ app.use('/uploadprofile', async (req, res) => {
         return;
     }
 
-    res.sendStatus(200);
+    res.status(200).json(JSON.stringify([200, "ok"]));
 });
 
 app.use('/loadprofile', async (req, res) => {

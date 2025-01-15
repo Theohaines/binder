@@ -182,6 +182,7 @@ function getTheme(){
 
 function init(){
     if (checkLanding()){
+        console.log(localStorage.getItem("lobbyId"))
         if (localStorage.getItem("lobbyId") == "null"){
             return;
         } else {

@@ -3,6 +3,7 @@
 body {
     background: rgb(255,109,89);
     background: linear-gradient(0deg, rgba(255,109,89,1) 0%, rgba(254,88,100,1) 35%, rgba(254,70,109,1) 100%);
+    background: -moz-linear-gradient(0deg, rgba(255,109,89,1) 0%, rgba(254,88,100,1) 35%, rgba(254,70,109,1) 100%);
 }
 
 * {

@@ -183,7 +183,7 @@ function getTheme(){
 function init(){
     if (checkLanding()){
         console.log(localStorage.getItem("lobbyId"))
-        if (localStorage.getItem("lobbyId") == "null"){
+        if (localStorage.getItem("lobbyId") == "null" || localStorage.getItem("lobbyId") === "" || !localStorage.getItem("lobbyId")){
             return;
         } else {
             document.getElementById("joinGameInput").value = localStorage.getItem("lobbyId");

@@ -64,6 +64,7 @@ async function viewLobby() {
         prettyListLobby(data);
     }).catch(error => {
         console.error('Fetch error:', error);
+        localStorage.clear();
     });
 }
 
